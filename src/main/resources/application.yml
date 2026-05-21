@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: fileupload-auth
+  datasource:
+    url: jdbc:h2:mem:fileupload;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  jwt:
+    # Learning demo only. In production, inject this from an environment variable or secret manager.
+    secret: "change-me-change-me-change-me-change-me-change-me-change-me"
+    expiration-minutes: 120
+  storage:
+    upload-dir: uploads
+
+server:
+  port: 8080
