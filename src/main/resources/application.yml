@@ -29,3 +29,20 @@ app:
 
 server:
   port: 8080
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:h2:file:./data/fileupload;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  h2:
+    console:
+      enabled: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+  storage:
+    upload-dir: ${UPLOAD_DIR:uploads}
