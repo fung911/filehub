@@ -6,6 +6,7 @@ import { saveSession } from "@/stores/auth";
 import { t } from "@/i18n";
 
 const router = useRouter();
+const isDemoMode = import.meta.env.VITE_DEMO_MODE === "true";
 const mode = ref("login");
 const username = ref("");
 const password = ref("");
@@ -28,7 +29,7 @@ async function submit() {
   feedbackType.value = "";
   loading.value = true;
 
-  if (isLogin.value && username.value.trim() === "admin" && password.value === "admin") {
+  if (isDemoMode && isLogin.value && username.value.trim() === "admin" && password.value === "admin") {
     saveSession("demo-token", "admin");
     await router.push("/files");
     loading.value = false;
@@ -132,7 +133,7 @@ async function submit() {
       </form>
 
       <p v-if="feedback" class="feedback" :class="feedbackType">{{ feedback }}</p>
-      <p class="demo-hint">{{ t("demoHint") }}</p>
+      <p v-if="isDemoMode" class="demo-hint">{{ t("demoHint") }}</p>
     </section>
   </main>
 </template>

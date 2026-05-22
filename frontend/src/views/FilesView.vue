@@ -6,6 +6,7 @@ import { authState, clearSession } from "@/stores/auth";
 import { t, locale } from "@/i18n";
 
 const router = useRouter();
+const isDemoMode = import.meta.env.VITE_DEMO_MODE === "true";
 const files = ref([]);
 const selectedFile = ref(null);
 const loading = ref(false);
@@ -21,7 +22,7 @@ const DEMO_FILES = [
   { id: 5, originalFilename: "source-code.zip", contentType: "application/zip", size: 1048576, uploadedAt: "2024-03-20T09:10:00Z" },
 ];
 
-const isDemo = computed(() => authState.token === "demo-token");
+const isDemo = computed(() => isDemoMode && authState.token === "demo-token");
 const tokenPreview = computed(() => authState.token || t("noToken"));
 const selectedFileName = computed(() => selectedFile.value?.name || t("chooseFile"));
 
